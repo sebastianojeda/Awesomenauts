@@ -10,7 +10,9 @@ game.PlayerEntity = me.Entity.extend({
 				return(new me.Rect(0, 0, 64, 64)).toPolygon();
 			}
 		}]);
-	  		this.body.setVelocity(5, 0);
+             // this.body.setVelocity allows us to set were 
+			//our player standes
+	  		this.body.setVelocity(5, 20);
 
 
 	},
