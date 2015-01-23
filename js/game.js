@@ -39,6 +39,7 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
+		//pool.register registers my player to the game
 		me.pool.register("player", game.PlayerEntity, true);
 
 		

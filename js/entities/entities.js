@@ -16,7 +16,8 @@ game.PlayerEntity = me.Entity.extend({
 
 
 	},
-
+		//update function works with my PlayerEntity above
+		//update function constently updates my PlayerEntity
 	update: function(delta){
 		if(me.input.isKeyPressed("right")){
 			//sets the position of my X by adding the volocity above in 

@@ -7,7 +7,11 @@ game.PlayScreen = me.ScreenObject.extend({
 		game.data.score = 0;
 		me.levelDirector.loadLevel("test");
 
+		//var player = me.pool.pull 
+		//pulls the player from the register pool in
+		//game.js
 		var player = me.pool.pull("player", 0, 420, {});
+		//game.world addes my player to the game world
 		me.game.world.addChild(player, 5);
 
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
