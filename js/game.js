@@ -42,9 +42,14 @@ var game = {
 		//pool.register registers my player to the game
 		me.pool.register("player", game.PlayerEntity, true);
 
+		// me.input.bindKey(me.input.KEY.RIGHT, "right");
+  //       me.input.bindKey(me.input.KEY.LEFT, "left");
+  //       me.input.bindKey(me.input.KEY.UP, "jump", true);
 		
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
+
+
 
 		// Start the game.
 		me.state.change(me.state.PLAY);
