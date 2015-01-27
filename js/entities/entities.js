@@ -1,4 +1,6 @@
 game.PlayerEntity = me.Entity.extend({
+	// init function is creating my character and holding 
+	//all of his properties
 	init: function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y,{
 			image: "player",
@@ -44,7 +46,7 @@ game.PlayerEntity = me.Entity.extend({
 
 
 		this.body.update(delta);
-
+		//this._super updates my characters animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	}
