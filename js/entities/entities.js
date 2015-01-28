@@ -26,11 +26,12 @@ game.PlayerEntity = me.Entity.extend({
 		// update function works with my PlayerEntity above
 		// update function constently updates my PlayerEntity
 	update: function(delta){
-		if(me.input.isKeyPressed("left")){
+		if(me.input.isKeyPressed("right")){
 			//sets the position of my X by adding the volocity above in 
 			//setVelocity() and multiplying it by me.timer.tick.
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			this.flipX(true);
 			
 		}
 		else{
@@ -38,11 +39,13 @@ game.PlayerEntity = me.Entity.extend({
 		}
 
 		 //these if statements are checking the animation of the character
-		if(this.body.vel.x)
+		if(this.body.vel.x !== 0){
 		if(!this.renderable.isCurrentAnimation('walk')){
 			this.renderable.setCurrentAnimation("walk");
 		}
-
+	}else{
+		this.renderable.setCurrentAnimation("idle");
+	}
 
 
 		this.body.update(delta);
@@ -73,4 +76,30 @@ game.PlayerEntity = me.Entity.extend({
 //   }
 // }
 
+});
+//this is a Base Tower entity
+game.PlyerBaseEntity = me.Entity.extend	({
+	//init: function is creating my 
+	init: function(x, y, settings){
+		this._super(me.Entity, 'init', [x, y, {
+			imagae: 'tower',
+			width: 100,
+			height: 100,
+			spritewidth '100',
+			spriteheight '100',
+			getShape: function(){
+				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+			}
+
+		}]);
+		this.broken = false;
+		this.health = 10;
+		this.alwaysUpdate = true;
+		this.body.onCollision = this.onCollision.bind(this);
+		this.type = "PlyerBaseEntity";
+	},
+
+	update:function(){
+
+	}
 });
