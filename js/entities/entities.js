@@ -85,6 +85,42 @@ game.PlyerBaseEntity = me.Entity.extend	({
 			imagae: 'tower',
 			width: 100,
 			height: 100,
+			spritewidth "100",
+			spriteheight "100",
+			getShape: function(){
+				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+			}
+
+		}]);
+		this.broken = false;
+		this.health = 10;
+		this.alwaysUpdate = true;
+		this.body.onCollision = this.onCollision.bind(this);
+		this.type = "PlyerBaseEntity";
+	},
+
+	update:function(){
+		if(this.health<=0){
+			this.broken = true;
+		}
+		this.body.update(delta);
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
+
+	onCollision: function(){
+
+	}
+});
+
+//this is the enemy Base
+game.EnemyBaseEntity = me.Entity.extend	({
+	//init: function is creating my 
+	init: function(x, y, settings){
+		this._super(me.Entity, 'init', [x, y, {
+			imagae: 'tower',
+			width: 100,
+			height: 100,
 			spritewidth '100',
 			spriteheight '100',
 			getShape: function(){
@@ -96,7 +132,7 @@ game.PlyerBaseEntity = me.Entity.extend	({
 		this.health = 10;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
-		this.type = "PlyerBaseEntity";
+		this.type = "EnemyBaseEntity";
 	},
 
 	update:function(){
