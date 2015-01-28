@@ -100,6 +100,15 @@ game.PlyerBaseEntity = me.Entity.extend	({
 	},
 
 	update:function(){
+		if(this.health<=0){
+			this.broken = true;
+		}
+		this.body.update(delta);
+		this._super(me.Entity, "update", [delta]);
+		return true;
+	},
 
+	onCollision: function(){
+		
 	}
 });
