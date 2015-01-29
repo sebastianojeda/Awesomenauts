@@ -19,6 +19,8 @@ game.PlayerEntity = me.Entity.extend({
 	  		this.renderable.addAnimation('idle', [78]);
 	  		this.renderable.addAnimation('walk',[117, 118, 119, 120, 121, 122, 
 	  			123, 124, 125], 80);
+	  		//this is my attack animation
+	  		this.renderable.addAnimation('attack', [], 80);
 	  		this.renderable.setCurrentAnimation('idle');
 
 
@@ -38,9 +40,11 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.vel.x = 0;
 		}
 
+		if(me.input.isKeyPressed("attack")){}
+
 		 //these if statements are checking the animation of the character
 		if(this.body.vel.x !== 0){
-		if(!this.renderable.isCurrentAnimation('walk')){
+		if(!this.renderable.isCurrentAnimation("walk")){
 			this.renderable.setCurrentAnimation("walk");
 		}
 	}else{
@@ -54,39 +58,19 @@ game.PlayerEntity = me.Entity.extend({
 		return true;
 	}
 
-// 	update: function(deltatime){
-//         if(me.input.isKeyPressed("right")){
-//          this.renderable.flipX(false);
-//          this.vel.x += this.accel.x * me.timer.tick;
-//  }
-//         else if(me.input.isKeyPressed("left")){
-//             this.renderable.flipX(true);
-//             this.vel.x -= this.accel.x * me.timer.tick;
-//  }
-        
-        
-//          if(me.input.isKeyPressed("jump")){
-//              this.jumping = true;
-//            this.mutipleJump = (this.vel.y === 0)?1:this.mutipleJump;
-// 	 if (this.mutipleJump<=2) {
-// 				// easy 'math' for double jump
-// 	   this.vel.y -= (this.maxVel.y * this.mutipleJump++) * me.timer.tick;
-            
-//   }   
-//   }
-// }
+
 
 });
 //this is a Base Tower entity
-game.PlyerBaseEntity = me.Entity.extend	({
+game.PlayerBaseEntity = me.Entity.extend	({
 	//init: function is creating my 
 	init: function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
 			imagae: 'tower',
 			width: 100,
 			height: 100,
-			spritewidth "100",
-			spriteheight "100",
+			spritewidth: "100",
+			spriteheight: "100",
 			getShape: function(){
 				return (new me.Rect(0, 0, 100, 100)).toPolygon();
 			}
@@ -96,10 +80,10 @@ game.PlyerBaseEntity = me.Entity.extend	({
 		this.health = 10;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
-		this.type = "PlyerBaseEntity";
+		this.type = "PlayerBase";
 	},
 
-	update:function(){
+	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
 		}
@@ -121,8 +105,8 @@ game.EnemyBaseEntity = me.Entity.extend	({
 			imagae: 'tower',
 			width: 100,
 			height: 100,
-			spritewidth '100',
-			spriteheight '100',
+			spritewidth: "100",
+			spriteheight: "100",
 			getShape: function(){
 				return (new me.Rect(0, 0, 100, 100)).toPolygon();
 			}
@@ -132,10 +116,10 @@ game.EnemyBaseEntity = me.Entity.extend	({
 		this.health = 10;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
-		this.type = "EnemyBaseEntity";
+		this.type = "EnemyBase";
 	},
 
-	update:function(){
+	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
 		}

@@ -41,6 +41,8 @@ var game = {
 	"loaded" : function () {
 		//pool.register registers my player to the game
 		me.pool.register("player", game.PlayerEntity, true);
+		me.pool.register("PlayerBase", game.PlayerBaseEntity);
+		me.pool.register("EnemyBase", game.EnemyBaseEntity);
 
 		// me.input.bindKey(me.input.KEY.RIGHT, "right");
   //       me.input.bindKey(me.input.KEY.LEFT, "left");
