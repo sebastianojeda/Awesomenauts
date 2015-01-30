@@ -39,14 +39,6 @@ game.PlayerEntity = me.Entity.extend({
 		else{
 			this.body.vel.x = 0;
 		}
-
-		if(me.input.isKeyPressed("attack"))
-			if(!this.renderable.isCurrentAnimation("attack")){
-				//Sets the current animation ATTACK to IDLE
-			    this.renderable.setCurrentAnimation("attack", "idle");	
-			}
-	}
-
 		 //these if statements are checking the animation of the character
 		if(this.body.vel.x !== 0){
 		if(!this.renderable.isCurrentAnimation("walk")){
@@ -56,22 +48,33 @@ game.PlayerEntity = me.Entity.extend({
 		this.renderable.setCurrentAnimation("idle");
 	}
 
+	if(me.input.isKeyPressed("attack")){ 
 
-		this.body.update(delta);
+
+
+	}
+			if(!this.renderable.isCurrentAnimation("attack")){
+				//Sets the current animation ATTACK to IDLE
+			    this.renderable.setCurrentAnimation("attack");
+
+			    //Makes it that the next time we start sequence we begin
+			    //from 	the first animation
+
+			}
+			this.body.update(delta);
 		//this._super updates my characters animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
 	}
 
-
-
 });
+
 //this is a Base Tower entity
 game.PlayerBaseEntity = me.Entity.extend	({
 	//init: function is creating my 
 	init: function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
-			imagae: 'tower',
+			image: 'tower',
 			width: 100,
 			height: 100,
 			spritewidth: "100",
@@ -107,7 +110,7 @@ game.EnemyBaseEntity = me.Entity.extend	({
 	//init: function is creating my 
 	init: function(x, y, settings){
 		this._super(me.Entity, 'init', [x, y, {
-			imagae: 'tower',
+			image: 'tower',
 			width: 100,
 			height: 100,
 			spritewidth: "100",
