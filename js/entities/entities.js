@@ -16,12 +16,12 @@ game.PlayerEntity = me.Entity.extend({
 			//our player standes
 	  		this.body.setVelocity(5, 20);
 
-	  		this.renderable.addAnimation('idle', [78]);
-	  		this.renderable.addAnimation('walk',[117, 118, 119, 120, 121, 122, 
+	  		this.renderable.addAnimation("idle", [78]);
+	  		this.renderable.addAnimation("walk",[117, 118, 119, 120, 121, 122, 
 	  			123, 124, 125], 80);
 	  		//this is my attack animation
-	  		this.renderable.addAnimation('attack', [65, 66, 67, 68, 69, 70, 71, 72], 80);
-	  		this.renderable.setCurrentAnimation('idle');
+	  		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
+	  		this.renderable.setCurrentAnimation("walk");
 
 
 	},
@@ -41,27 +41,30 @@ game.PlayerEntity = me.Entity.extend({
 		}
 		 //these if statements are checking the animation of the character
 		if(this.body.vel.x !== 0){
-		if(!this.renderable.isCurrentAnimation("walk")){
-			this.renderable.setCurrentAnimation("walk");
+			if(!this.renderable.isCurrentAnimation("walk")){
+
+				this.renderable.setCurrentAnimation("walk");
+
+			}
+		}else{
+			console.log("idle");
+			this.renderable.setCurrentAnimation("idle");
 		}
-	}else{
-		this.renderable.setCurrentAnimation("idle");
-	}
 
 	if(me.input.isKeyPressed("attack")){ 
 
+		if(!this.renderable.isCurrentAnimation("attack")){
+					//Sets the current animation ATTACK to IDLE
+				    this.renderable.setCurrentAnimation("attack");
 
+				    //Makes it that the next time we start sequence we begin
+				    //from 	the first animation
 
+				}
 	}
-			if(!this.renderable.isCurrentAnimation("attack")){
-				//Sets the current animation ATTACK to IDLE
-			    this.renderable.setCurrentAnimation("attack");
-
-			    //Makes it that the next time we start sequence we begin
-			    //from 	the first animation
-
-			}
-			this.body.update(delta);
+		
+		console.log("update");
+		this.body.update(delta);
 		//this._super updates my characters animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
