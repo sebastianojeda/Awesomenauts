@@ -34,12 +34,20 @@ game.PlayerEntity = me.Entity.extend({
 			//me.timer.tick makes the movement look smooth
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
 			this.flipX(true);
-			
-		}
-		else{
+			//this else is statement is creating my left key movement
+		}else if (me.input.isKeyPressed("left")){
+			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			this.flipX(false);
+		}else{
 			this.body.vel.x = 0;
 		}
+			//this if statement is creating my jump key
+		if(me.input.isKeyPressed("jump") && !this.jumping && !this.falling){
+			this.jumping = true;
+			this.body.vel.y -= this.accel.y * me.timer.tick;
+		}
 		 //these if statements are checking the animation of the character
+		}
 		if(this.body.vel.x !== 0){
 			if(!this.renderable.isCurrentAnimation("walk")){
 
@@ -83,7 +91,7 @@ game.PlayerBaseEntity = me.Entity.extend	({
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function(){
-				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 
 		}]);
@@ -119,7 +127,7 @@ game.EnemyBaseEntity = me.Entity.extend	({
 			spritewidth: "100",
 			spriteheight: "100",
 			getShape: function(){
-				return (new me.Rect(0, 0, 100, 100)).toPolygon();
+				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
 
 		}]);
