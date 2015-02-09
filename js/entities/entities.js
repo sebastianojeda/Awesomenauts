@@ -36,45 +36,23 @@ game.PlayerEntity = me.Entity.extend({
 			this.flipX(true);
 			//this else is statement is creating my left key movement
 		}else{
-this.body.vel.x = 0;
+			this.body.vel.x = 0;
+		}
+			//this is my if statement for my attack animation
+		if(me.input.isKeyPressed("attack")){
 
 		}
-		
+
+
+
+
+		    //these if statements are checking the animation of the character
 		if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("walk")){
 			this.renderable.setCurrentAnimation("walk");
 		}else if (this.body.vel.x === 0){
 			this.renderable.setCurrentAnimation("idle");
+		}	
 		}
-
-	// 		    	 //these if statements are checking the animation of the character
- // 	if(this.body.vel.x !== 0){
-	// 	if(!this.renderable.isCurrentAnimation("walk")){
-	// 		this.renderable.setCurrentAnimation("walk");
-	// 		if(!this.renderable.isCurrentAnimation("walk")){
-
-	// 			this.renderable.setCurrentAnimation("walk");
-	// 		}
-	// 	}else{
-	// 		console.log("idle");
-	// 		this.renderable.setCurrentAnimation("idle");
- // 		}
-	// }else{
-	// 	this.renderable.setCurrentAnimation("idle");
-	// }
-
-	
-		 
-	// 	 	if(me.input.isKeyPressed("attack")){ 
-
-	// 	if(!this.renderable.isCurrentAnimation("attack")){
-	// 				//Sets the current animation ATTACK to IDLE
-	// 			    this.renderable.setCurrentAnimation("attack");
-	// 			    //Makes it that the next time we start sequence we begin
-	// 			    //from 	the first animation
-	// 			    this.renderable.setAnimationFrame();
-
-	// 			}
-	//     }
 
 		this.body.update(delta);
 		//this._super updates my characters animation
