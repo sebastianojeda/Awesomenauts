@@ -35,32 +35,50 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.vel.x += this.body.accel.x * me.timer.tick;
 			this.flipX(true);
 			//this else is statement is creating my left key movement
+		}else if(me.input.isKeyPressed("left")){
+			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			this.flipX(false);
 		}else{
 			this.body.vel.x = 0;
 		}
-			//this is my if statement for my attack animation
+
+		if(me.input.isKeyPressed("jump") && !this.jumping && !this.falling){
+			this.jumping = true;
+			this.body.vel.y
+		}
+
+
+
+
+
+
+
+				//this is my if statement for my attack animation
 		if(me.input.isKeyPressed("attack")){
-
+			if(!this.renderable.isCurrentAnimation("attack")){
+				//sets current animation to attack and then back to idle
+				this.renderable.setCurrentAnimation("attack", "idle");
+				//setAnimationFrame is used to start our attack animtion
+				//from the beginning
+				this.renderable.setAnimationFrame();
+			}
 		}
-
-
-
-
 		    //these if statements are checking the animation of the character
-		if(this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("walk")){
-			this.renderable.setCurrentAnimation("walk");
-		}else if (this.body.vel.x === 0){
+		else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
+			if(!this.renderable.isCurrentAnimation("walk")){
+				this.renderable.setCurrentAnimation("walk");
+			}
+
+		}else if(!this.renderable.isCurrentAnimation("attack")){
 			this.renderable.setCurrentAnimation("idle");
-		}	
 		}
+
 
 		this.body.update(delta);
 		//this._super updates my characters animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
-
-	}
-
+		}
 		
 });
 
@@ -73,7 +91,7 @@ game.PlayerBaseEntity = me.Entity.extend	({
 			width: 100,
 			height: 100,
 			spritewidth: "100",
-			spriteheight: "100",
+			spriteheight: "100", 
 			getShape: function(){
 				return (new me.Rect(0, 0, 100, 70)).toPolygon();
 			}
