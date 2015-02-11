@@ -220,7 +220,7 @@ game.EnemyCreep = me.Entity.extend({
 		}]);
 		this.health = 10;
 		this.alwaysUpdate = true;
-
+		this.now = new Date().getTime();
 		this.body.setVelocity(3, 20);
 
 		this.type = "EnemyCreep";
@@ -230,9 +230,37 @@ game.EnemyCreep = me.Entity.extend({
 
 	},
 
-	update: function(){
+	update: function(delta){
+		this.now = new Date().getTime();
 
+		this.body.vel.x -= this.body.accel.x * me.timer.tick;
+
+		me.collision.check(this, true, this.collideHandler.bind(this), true);
+
+		this.body.update(delta);
+
+		//this._super updates my characters animation
+		this._super(me.Entity, "update", [delta]);
+
+		return true;
+	},
+
+	collideHandler: function(response){
+		//these two if statments are for my creep to be able to 
+		//attack my player entity
+		if(response.b.type==='PlayerBase'){
+			this.attacking= true;
+			this.lastAttacking = this.now;
+			this.body.vel.x = 0;
+			this.pos.x = this.pos.x + 1;
+			if((this.now-this.lastHit >= 1000)){
+				this.lastHit = this.now;
+				response.b.loseHealth(1);
+			}
+		}
 	}
+
+
 });
 
 game.GameManager = Object.extend({
@@ -249,6 +277,7 @@ game.GameManager = Object.extend({
 		//Math.round works as a timer to properly send 
 		//enemy creeps at a given time
 		if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
+			this.lastCreep = this.now;
 			var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
 			me.game.world.addChild(creepe, 5);
 		}
