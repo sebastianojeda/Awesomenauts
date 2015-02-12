@@ -104,7 +104,7 @@ game.PlayerEntity = me.Entity.extend({
 				this.pos.x = this.pos.x +1;	
 			}
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= 1000){
-				console.log("tower hit");
+				
 				this.lastHit = this.now;
 				response.b.loseHealth();
 			}
@@ -134,7 +134,6 @@ game.PlayerBaseEntity = me.Entity.extend	({
 		this.type = "PlayerBase";
 
 		this.renderable.addAnimation("idle", [0]);
-
 		this.renderable.addAnimation("broken", [1]);
 
 		this.renderable.setCurrentAnimation("idle");
@@ -143,10 +142,17 @@ game.PlayerBaseEntity = me.Entity.extend	({
 	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
+			this.renderable.setCurrentAnimation("brokenif");
 		}
 		this.body.update(delta);
 		this._super(me.Entity, "update", [delta]);
 		return true;
+	},
+
+	loseHealth: function(damage){
+		
+		 this.health = this.health - damage;
+
 	},
 
 	onCollision: function(){
@@ -220,6 +226,13 @@ game.EnemyCreep = me.Entity.extend({
 		}]);
 		this.health = 10;
 		this.alwaysUpdate = true;
+		//this.attacking lets us know that our enemy is 
+		//attack
+		this.attacking = false;
+		//keeps track of creeps last attack
+		this.lastAttacking = new Date().getTime();
+		//keeps track of creeps last hit.
+		this.lastHit = new Date().getTime();
 		this.now = new Date().getTime();
 		this.body.setVelocity(3, 20);
 
@@ -247,14 +260,19 @@ game.EnemyCreep = me.Entity.extend({
 
 	collideHandler: function(response){
 		//these two if statments are for my creep to be able to 
-		//attack my player entity
+		//attack my player entity		
 		if(response.b.type==='PlayerBase'){
+			
 			this.attacking= true;
-			this.lastAttacking = this.now;
+			//this.lastAttacking = this.now;
 			this.body.vel.x = 0;
+			//keeps moving the creep to the right
 			this.pos.x = this.pos.x + 1;
 			if((this.now-this.lastHit >= 1000)){
+				//updates the lasthit timer
 				this.lastHit = this.now;
+				//makes the player base call the losehealth function
+				//to lose 1
 				response.b.loseHealth(1);
 			}
 		}
