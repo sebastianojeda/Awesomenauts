@@ -12,6 +12,8 @@ game.PlayerEntity = me.Entity.extend({
 				return(new me.Rect(0, 0, 64, 64)).toPolygon();
 			}
 		}]);
+
+		this.type = 'PlayerEntity';
              // this.body.setVelocity allows us to set were 
 			//our player standes
 	  		this.body.setVelocity(5, 20);
@@ -84,6 +86,11 @@ game.PlayerEntity = me.Entity.extend({
 		return true;
 		},
 
+			//allows my player to lose health
+		loseHealth: function(damage){
+			this.health = this.health - damage;
+		},
+
 		//collideHandler is responsable for make my player 
 		//collide with the bases
 	collideHandler: function(response){
@@ -142,7 +149,7 @@ game.PlayerBaseEntity = me.Entity.extend	({
 	update:function(delta){
 		if(this.health<=0){
 			this.broken = true;
-			this.renderable.setCurrentAnimation("brokenif");
+			this.renderable.setCurrentAnimation("broken");
 		}
 		this.body.update(delta);
 		this._super(me.Entity, "update", [delta]);
@@ -264,6 +271,18 @@ game.EnemyCreep = me.Entity.extend({
 		if(response.b.type==='PlayerBase'){
 			
 			this.attacking= true;
+			//this.lastAttacking = this.now;
+			this.body.vel.x = 0;
+			//keeps moving the creep to the right
+			this.pos.x = this.pos.x + 1;
+			if((this.now-this.lastHit >= 1000)){
+				//updates the lasthit timer
+				this.lastHit = this.now;
+				//makes the player base call the losehealth function
+				//to lose 1
+				response.b.loseHealth(1);
+			}
+		}else if(response.b.type==='PlayerEntity'){	this.attacking= true;
 			//this.lastAttacking = this.now;
 			this.body.vel.x = 0;
 			//keeps moving the creep to the right
