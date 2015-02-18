@@ -14,6 +14,7 @@ game.PlayerEntity = me.Entity.extend({
 		}]);
 
 		this.type = 'PlayerEntity';
+		this.health = 5;
              // this.body.setVelocity allows us to set were 
 			//our player standes
 	  		this.body.setVelocity(5, 20);
@@ -27,9 +28,12 @@ game.PlayerEntity = me.Entity.extend({
 	  		this.renderable.addAnimation("idle", [78]);
 	  		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 
 	  			123, 124, 125], 80);
+
 	  		//this is my attack animation
 	  		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
 	  		this.renderable.setCurrentAnimation("idle");
+
+
 
 
 	},
@@ -89,6 +93,8 @@ game.PlayerEntity = me.Entity.extend({
 			//allows my player to lose health
 		loseHealth: function(damage){
 			this.health = this.health - damage;
+
+		
 		},
 
 		//collideHandler is responsable for make my player 
@@ -114,6 +120,12 @@ game.PlayerEntity = me.Entity.extend({
 				
 				this.lastHit = this.now;
 				response.b.loseHealth();
+			}
+		}else if(response.b.type==='EnemyCreep'){
+			//This if statement is created to make the
+			//enemy creep lose health
+			if(this.renderable.isCurrentAnimation("attack")){
+				response.b.losehealth(1);
 			}
 		}
 	}		
@@ -250,7 +262,17 @@ game.EnemyCreep = me.Entity.extend({
 
 	},
 
+	losehealth: function(damage){
+		this.health = this.health - damage;
+
+	},
+
 	update: function(delta){
+
+		if(this.health <=0){
+			me.game.world.removeChild(this);
+		}
+
 		this.now = new Date().getTime();
 
 		this.body.vel.x -= this.body.accel.x * me.timer.tick;
@@ -282,12 +304,20 @@ game.EnemyCreep = me.Entity.extend({
 				//to lose 1
 				response.b.loseHealth(1);
 			}
-		}else if(response.b.type==='PlayerEntity'){	this.attacking= true;
+		}else if(response.b.type==='PlayerEntity'){	
+			var xdif = this.pos.x - response.b.pos.x;
+			this.attacking= true;
 			//this.lastAttacking = this.now;
-			this.body.vel.x = 0;
+			
+			if(xdif>0){
+				this.pos.x = this.pos.x + 1;
+				this.body.vel.x = 0;
+			}
+
 			//keeps moving the creep to the right
 			this.pos.x = this.pos.x + 1;
-			if((this.now-this.lastHit >= 1000)){
+
+			if((this.now-this.lastHit >= 1000) && xdif>0){
 				//updates the lasthit timer
 				this.lastHit = this.now;
 				//makes the player base call the losehealth function
@@ -295,6 +325,7 @@ game.EnemyCreep = me.Entity.extend({
 				response.b.loseHealth(1);
 			}
 		}
+
 	}
 
 
