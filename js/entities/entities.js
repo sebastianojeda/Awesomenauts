@@ -118,14 +118,14 @@ game.PlayerEntity = me.Entity.extend({
 				
 		    if(ydif<-40 && xdif< 70 && xdif>-35){
 				this.body.falling = false;
-				this.body.vel.y = -1;
+				// this.body.vel.y = -1;
 			}
 			else if(xdif>-35 && this.facing=== "right" && (xdif<0) && ydif>-50){
 				this.body.vel.x = 0;
 				this.pos.x = this.pos.x -1;
 			}else if(xdif<70 && this.facing=== "left" && (xdif>0)){
 				this.body.vel.x = 0;
-				this.pos.x = this.pos.x +1;	
+				// this.pos.x = this.pos.x +1;	
 			}
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >= game.data.playerAttackTimer
 				     &&(Math.abs(ydif) <=40) && 
@@ -140,7 +140,7 @@ game.PlayerEntity = me.Entity.extend({
 			var ydif = this.pos.y - response.b.pos.y;
 
 			if (xdif>0){
-				this.pos.x = this.pos.x + 1;
+				// this.pos.x = this.pos.x + 1;
 				if(this.facing==='left'){
 					this.body.vel.x = 0;
 				}
@@ -148,7 +148,7 @@ game.PlayerEntity = me.Entity.extend({
 				if(this.faceing==='right'){
 					this.body.vel.x = 0;
 				}
-				this.pos.x = this.pos.x -1;
+				// this.pos.x = this.pos.x -1;
 			}
 
 			//This if statement is created to make the
@@ -225,7 +225,7 @@ game.EnemyBaseEntity = me.Entity.extend	({
 
 		}]);
 		this.broken = false;
-		this.health = game.data.EnemyBaseHealth;
+		this.health = game.data.enemyBaseHealth;
 		this.alwaysUpdate = true;
 		this.body.onCollision = this.onCollision.bind(this);
 		this.type = "EnemyBase";
@@ -238,6 +238,7 @@ game.EnemyBaseEntity = me.Entity.extend	({
 	},
 
 	update:function(delta){
+		console.log(this.health);
 		if(this.health<=0){
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken");
@@ -326,7 +327,7 @@ game.EnemyCreep = me.Entity.extend({
 			//this.lastAttacking = this.now;
 			this.body.vel.x = 0;
 			//keeps moving the creep to the right
-			this.pos.x = this.pos.x + 1;
+			// this.pos.x = this.pos.x + 1;
 			if((this.now-this.lastHit >= 1000)){
 				//updates the lasthit timer
 				this.lastHit = this.now;
@@ -340,12 +341,12 @@ game.EnemyCreep = me.Entity.extend({
 			//this.lastAttacking = this.now;
 			
 			if(xdif>0){
-				this.pos.x = this.pos.x + 1;
+				// this.pos.x = this.pos.x + 1;
 				this.body.vel.x = 0;
 			}
 
 			//keeps moving the creep to the right
-			this.pos.x = this.pos.x + 1;
+			// this.pos.x = this.pos.x + 1;
 
 			if((this.now-this.lastHit >= 1000) && xdif>0){
 				//updates the lasthit timer
