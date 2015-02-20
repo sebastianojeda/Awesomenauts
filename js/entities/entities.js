@@ -31,7 +31,7 @@ game.PlayerEntity = me.Entity.extend({
 	  			123, 124, 125], 80);
 
 	  		//this is my attack animation
-	  		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
+	  		this.renderable.addAnimation("attack", [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234], 80);
 	  		this.renderable.setCurrentAnimation("idle");
 
 
@@ -45,9 +45,7 @@ game.PlayerEntity = me.Entity.extend({
 
 		if(this.health <=0){
 			this.dead = true;
-			this.pos.x = 10;
-			this.pos.y = 0;
-			this.health = game.data.playerHealth;
+		
 
 		}
 
@@ -373,6 +371,12 @@ game.GameManager = Object.extend({
 
 	update: function(){
 		this.now = new Date().getTime();
+
+		if(game.data.player.dead){
+			me.game.world.removeChild(game.data.player);
+			me.state.current().resetPlayer(10, 0);
+		}
+
 		//Math.round works as a timer to properly send 
 		//enemy creeps at a given time
 		if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){

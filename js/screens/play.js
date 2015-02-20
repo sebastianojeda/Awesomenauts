@@ -7,12 +7,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		game.data.score = 0;
 		me.levelDirector.loadLevel("test");
 
-		// var player = me.pool.pull 
-		// //pulls the player from the register pool in
-		// //game.js
-		var player = me.pool.pull("player", 0, 420, {});
-		// //game.world addes my player to the game world
-		me.game.world.addChild(player, 5);
+		this.resetPlayer(0, 420);
 
 		var gamemanager = me.pool.pull("GameManager", 0, 0, {});
 		me.game.world.addChild(gamemanager, 0);
@@ -34,5 +29,16 @@ game.PlayScreen = me.ScreenObject.extend({
 	onDestroyEvent: function() {
 		// remove the HUD from the game world
 		me.game.world.removeChild(this.HUD);
+	},
+
+	resetPlayer: function(x, y){
+		// var player = me.pool.pull 
+		// //pulls the player from the register pool in
+		// //game.js
+	    game.data.player = me.pool.pull("player", x, y, {});
+		// //game.world addes my player to the game world
+		me.game.world.addChild(game.data.player, 5);
+
 	}
+
 });
