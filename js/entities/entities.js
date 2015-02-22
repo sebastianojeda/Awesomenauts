@@ -31,7 +31,7 @@ game.PlayerEntity = me.Entity.extend({
 	  			123, 124, 125], 80);
 
 	  		//this is my attack animation
-	  		this.renderable.addAnimation("attack", [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234], 80);
+	  		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
 	  		this.renderable.setCurrentAnimation("idle");
 
 
