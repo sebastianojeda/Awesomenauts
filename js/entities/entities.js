@@ -167,53 +167,7 @@ game.PlayerEntity = me.Entity.extend({
 	}		
 });
 
-//this is a Base Tower entity
-game.PlayerBaseEntity = me.Entity.extend	({
-	//init: function is creating my 
-	init: function(x, y, settings){
-		this._super(me.Entity, 'init', [x, y, {
-			image: 'tower',
-			width: 100,
-			height: 100,
-			spritewidth: "100",
-			spriteheight: "100", 
-			getShape: function(){
-				return (new me.Rect(0, 0, 100, 75)).toPolygon();
-			}
 
-		}]);
-		this.broken = false;
-		this.health = game.data.playerBaseHealth;
-		this.alwaysUpdate = true;
-		this.body.onCollision = this.onCollision.bind(this);
-		this.type = "PlayerBase";
-
-		this.renderable.addAnimation("idle", [0]);
-		this.renderable.addAnimation("broken", [1]);
-
-		this.renderable.setCurrentAnimation("idle");
-	},
-
-	update:function(delta){
-		if(this.health<=0){
-			this.broken = true;
-			this.renderable.setCurrentAnimation("broken");
-		}
-		this.body.update(delta);
-		this._super(me.Entity, "update", [delta]);
-		return true;
-	},
-
-	loseHealth: function(damage){
-		
-		 this.health = this.health - damage;
-
-	},
-
-	onCollision: function(){
-
-	}
-});
 
 //this is the enemy Base
 game.EnemyBaseEntity = me.Entity.extend	({
@@ -368,36 +322,3 @@ game.EnemyCreep = me.Entity.extend({
 
 });
 
-game.GameManager = Object.extend({
-	init: function(x, y, settings){
-		this.now = new Date().getTime();
-		this.lastCreep = new Date().getTime();
-		this.paused = false;
-		this.alwaysUpdate = true;
-
-	},
-
-	update: function(){
-		this.now = new Date().getTime();
-
-		if(game.data.player.dead){
-			me.game.world.removeChild(game.data.player);
-			me.state.current().resetPlayer(10, 0);
-		}
-
-		if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
-			game.data.gold += 1;
-
-		
-		}
-
-		//Math.round works as a timer to properly send 
-		//enemy creeps at a given time
-		if(Math.round(this.now/1000)%10 ===0 && (this.now - this.lastCreep >= 1000)){
-			this.lastCreep = this.now;
-			var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
-			me.game.world.addChild(creepe, 5);
-		}
-		return true;
-	}
-});
