@@ -23,6 +23,7 @@ game.PlayerEntity = me.Entity.extend({
 	  		this.now = new Date().getTime();
 	  		this.lastHit = this.now;
 	  		this.dead = false;
+	  		this.attack = game.data.playerAttack;
 	  		this.lastAttack = new Date().getTime(); //haven't used this yet
 	  		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
@@ -153,6 +154,13 @@ game.PlayerEntity = me.Entity.extend({
 			//enemy creep lose health
 			if(this.renderable.isCurrentAnimation("attack") && this.now-this.lastHit >=game.data.playerAttackTimer){
 				this.lastHit = this.now;
+					//if creeps health is less than our attack, execute if statement
+				if(response.b.health <= game.data.playerAttack){
+					//adds one gold for player
+					game.data.gold += 1;
+					
+				}
+
 				response.b.losehealth(game.data.playerAttack);
 			}
 		}
@@ -236,7 +244,7 @@ game.EnemyBaseEntity = me.Entity.extend	({
 	},
 
 	update:function(delta){
-		console.log(this.health);
+		
 		if(this.health<=0){
 			this.broken = true;
 			this.renderable.setCurrentAnimation("broken");
@@ -364,7 +372,7 @@ game.GameManager = Object.extend({
 	init: function(x, y, settings){
 		this.now = new Date().getTime();
 		this.lastCreep = new Date().getTime();
-
+		this.paused = false;
 		this.alwaysUpdate = true;
 
 	},
@@ -375,6 +383,12 @@ game.GameManager = Object.extend({
 		if(game.data.player.dead){
 			me.game.world.removeChild(game.data.player);
 			me.state.current().resetPlayer(10, 0);
+		}
+
+		if(Math.round(this.now/1000)%20 ===0 && (this.now - this.lastCreep >= 1000)){
+			game.data.gold += 1;
+
+		
 		}
 
 		//Math.round works as a timer to properly send 
