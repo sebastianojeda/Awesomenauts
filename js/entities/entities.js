@@ -5,28 +5,13 @@ game.PlayerEntity = me.Entity.extend({
 		this.setSuper();
 		this.setPlayerTimer();
 		this.setAttributes();
+		this.type = 'PlayerEntity';	
+		this.setFlags();
+		this.addAnimation();	  		
 
-		this.type = 'PlayerEntity';
-		
-	  		//keeps track 
-	  		this.facing = "right";
-	  		
-	  		this.dead = false;
-	  		this.attack = game.data.playerAttack;
-	  		
-	  		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
-
-	  		this.renderable.addAnimation("idle", [78]);
-	  		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 
-	  			123, 124, 125], 80);
-
-	  		//this is my attack animation
-	  		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
-	  		this.renderable.setCurrentAnimation("idle");
-
-
-
-
+	  	me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
+	  	
+	  	this.renderable.setCurrentAnimation("idle");
 	},
 
 		setSuper: function() {
@@ -47,12 +32,24 @@ game.PlayerEntity = me.Entity.extend({
 	  		this.lastHit = this.now;
 	  		this.lastAttack = new Date().getTime(); //haven't used this yet
 		},
-
 		setAttributes: function() {
 			this.health = game.data.playerHealth;
              // this.body.setVelocity allows us to set were 
 			//our player standes
 	  		this.body.setVelocity(game.data.playerMoveSpeed, 20);
+	  		this.attack = game.data.playerAttack;
+		},
+		setFlags: function(){
+			//keeps track 
+	  		this.facing = "right";	  		
+	  		this.dead = false; 
+		},
+		addAnimation: function(){
+			this.renderable.addAnimation("idle", [78]);
+	  		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 
+	  			123, 124, 125], 80);
+	  		//this is my attack animation
+	  		this.renderable.addAnimation("attack", [65, 66, 67, 68, 69, 70, 71, 72], 80);
 		},
 
 		// update function works with my PlayerEntity above
@@ -61,11 +58,9 @@ game.PlayerEntity = me.Entity.extend({
 		this.now = new Date().getTime();
 
 		if(this.health <=0){
-			this.dead = true;
-		
+			this.dead = true;		
 
 		}
-
 
 		if(me.input.isKeyPressed("right")){
 			//sets the position of my X by adding the volocity above in 
