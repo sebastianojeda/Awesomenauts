@@ -57,33 +57,10 @@ game.PlayerEntity = me.Entity.extend({
 	update: function(delta){
 		this.now = new Date().getTime();
 
-		if(this.health <=0){
-			this.dead = true;		
+		this.dead = checkingIfDead();
+		this.checkKeyPresses();
 
-		}
-
-		if(me.input.isKeyPressed("right")){
-			//sets the position of my X by adding the volocity above in 
-			//setVelocity() and multiplying it by me.timer.tick.
-			//me.timer.tick makes the movement look smooth
-			this.body.vel.x += this.body.accel.x * me.timer.tick;
-			this.facing = "right";
-			this.flipX(true);
-			//this else is statement is creating my left key movement
-		}else if(me.input.isKeyPressed("left")){
-			this.facing = "left";
-			this.body.vel.x -=this.body.accel.x * me.timer.tick;
-			this.flipX(false);
-		}else{
-			this.body.vel.x = 0;
-		}
-
-		if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling){
-			this.body.jumping = true;
-			this.body.vel.y -= this.body.accel.y * me.timer.tick;
-		}
-
-				//this is my if statement for my attack animation
+			//this is my if statement for my attack animation
 		if(me.input.isKeyPressed("attack")){
 			if(!this.renderable.isCurrentAnimation("attack")){
 				//sets current animation to attack and then back to idle
@@ -109,6 +86,47 @@ game.PlayerEntity = me.Entity.extend({
 		//this._super updates my characters animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
+		},
+
+		checkingIfDead: function(){
+
+			if(this.health <=0){
+				return = true;
+			}
+			return = false;
+		},
+		checkKeyPresses: function(){
+			if(me.input.isKeyPressed("right")){
+				this.moveRight();
+
+			//this else is statement is creating my left key movement
+			}else if(me.input.isKeyPressed("left")){
+				this.moveLeft();
+			}else{
+				this.body.vel.x = 0;
+		}
+
+			if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling){
+				this.jump();
+		}
+		},
+
+		moveRight: function(){
+			//sets the position of my X by adding the volocity above in 
+			//setVelocity() and multiplying it by me.timer.tick.
+			//me.timer.tick makes the movement look smooth
+			this.body.vel.x += this.body.accel.x * me.timer.tick;
+			this.facing = "right";
+			this.flipX(true);
+		},
+		moveLeft: function(){
+			this.facing = "left";
+			this.body.vel.x -=this.body.accel.x * me.timer.tick;
+			this.flipX(false);
+		},
+		jump: function(){
+			this.body.jumping = true;
+			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		},
 
 			//allows my player to lose health
