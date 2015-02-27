@@ -42,7 +42,8 @@ game.PlayerEntity = me.Entity.extend({
 		setFlags: function(){
 			//keeps track 
 	  		this.facing = "right";	  		
-	  		this.dead = false; 
+	  		this.dead = false;
+	  		this.attacking = false;
 		},
 		addAnimation: function(){
 			this.renderable.addAnimation("idle", [78]);
@@ -56,38 +57,15 @@ game.PlayerEntity = me.Entity.extend({
 		// update function constently updates my PlayerEntity
 	update: function(delta){
 		this.now = new Date().getTime();
-
 		this.dead = checkingIfDead();
 		this.checkKeyPresses();
-
-			//this is my if statement for my attack animation
-		if(me.input.isKeyPressed("attack")){
-			if(!this.renderable.isCurrentAnimation("attack")){
-				//sets current animation to attack and then back to idle
-				this.renderable.setCurrentAnimation("attack", "idle");
-				//setAnimationFrame is used to start our attack animtion
-				//from the beginning
-				this.renderable.setAnimationFrame();
-			}
-		}
-		    //these if statements are checking the animation of the character
-		else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
-			if(!this.renderable.isCurrentAnimation("walk")){
-				this.renderable.setCurrentAnimation("walk");
-			}
-
-		}else if(!this.renderable.isCurrentAnimation("attack")){
-			this.renderable.setCurrentAnimation("idle");
-		}
-
+		this.setAnimation();
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 		this.body.update(delta);
-
 		//this._super updates my characters animation
 		this._super(me.Entity, "update", [delta]);
 		return true;
 		},
-
 		checkingIfDead: function(){
 
 			if(this.health <=0){
@@ -109,8 +87,9 @@ game.PlayerEntity = me.Entity.extend({
 			if(me.input.isKeyPressed("jump") && !this.body.jumping && !this.body.falling){
 				this.jump();
 		}
-		},
+		 this.attacking = me.input.isKeyPressed("attack");
 
+		},
 		moveRight: function(){
 			//sets the position of my X by adding the volocity above in 
 			//setVelocity() and multiplying it by me.timer.tick.
@@ -128,12 +107,31 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		},
+		setAnimation: function(){
+				//this is my if statement for my attack animation
+		if(this.attacking){
+			if(!this.renderable.isCurrentAnimation("attack")){
+				//sets current animation to attack and then back to idle
+				this.renderable.setCurrentAnimation("attack", "idle");
+				//setAnimationFrame is used to start our attack animtion
+				//from the beginning
+				this.renderable.setAnimationFrame();
+			}
+		}
+		    //these if statements are checking the animation of the character
+		else if (this.body.vel.x !== 0 && !this.renderable.isCurrentAnimation("attack")){
+			if(!this.renderable.isCurrentAnimation("walk")){
+				this.renderable.setCurrentAnimation("walk");
+			}
 
+		}else if(!this.renderable.isCurrentAnimation("attack")){
+			this.renderable.setCurrentAnimation("idle");
+		}
+
+		},
 			//allows my player to lose health
 		loseHealth: function(damage){
-			this.health = this.health - damage;
-
-		
+			this.health = this.health - damage;		
 		},
 
 		//collideHandler is responsable for make my player 
