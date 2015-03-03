@@ -2,7 +2,7 @@ game.PlayerEntity = me.Entity.extend({
 	// init function is creating my character and holding 
 	//all of his properties
 	init: function(x, y, settings){
-		this.setSuper();
+		this.setSuper(x, y);
 		this.setPlayerTimer();
 		this.setAttributes();
 		this.type = 'PlayerEntity';	
@@ -14,7 +14,7 @@ game.PlayerEntity = me.Entity.extend({
 	  	this.renderable.setCurrentAnimation("idle");
 	},
 
-		setSuper: function() {
+		setSuper: function(x, y) {
 			this._super(me.Entity, 'init', [x, y,{
 			image: "player",
 			width: 64,
@@ -57,7 +57,7 @@ game.PlayerEntity = me.Entity.extend({
 		// update function constently updates my PlayerEntity
 	update: function(delta){
 		this.now = new Date().getTime();
-		this.dead = checkingIfDead();
+		// this.dead = this.checkIfDead();
 		this.checkKeyPresses();
 		this.setAnimation();
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -66,13 +66,13 @@ game.PlayerEntity = me.Entity.extend({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 		},
-		checkingIfDead: function(){
+		// checkingIfDead: function(){
 
-			if(this.health <=0){
-				return = true;
-			}
-			return = false;
-		},
+		// 	if(this.health <=0){
+		// 		return = true;
+		// 	}
+		// 	return = false;
+		// },
 		checkKeyPresses: function(){
 			if(me.input.isKeyPressed("right")){
 				this.moveRight();
