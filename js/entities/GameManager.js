@@ -50,7 +50,7 @@ game.HeroDeathManager = Object.extend({
 	}
 });
 
-game.ExpManager = object.extend({
+ game.ExpManager = Object.extend({
 	init: function(x, y, settings){
 		this.alwaysUpdate = true;
 	},

@@ -9,8 +9,8 @@ game.PlayScreen = me.ScreenObject.extend({
 
 		this.resetPlayer(0, 420);
 
-		var GameTimerManager = me.pool.pull("GameTimerManager", 0, 0, {});
-		me.game.world.addChild(GameTimerManager, 0);
+		var GametimerManager = me.pool.pull("GametimerManager", 0, 0, {});
+		me.game.world.addChild(GametimerManager, 0);
 
 
 		var HeroDeathManager = me.pool.pull("HeroDeathManager", 0, 0, {});

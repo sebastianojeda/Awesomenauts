@@ -17,8 +17,8 @@ var game = {
 		playerAttack: 1,
 		playerAttackTimer: 1000,
 		creepAttackTimer: 1000,
-		gameTimerManager: "";
-		heroDeathManager: "";
+		GametimerManager: "",
+		HeroDeathManager: "",
 		playerMoveSpeed: 5,
 		creepMoveSpeed: 5,
 		gameManager: "",
@@ -72,7 +72,7 @@ var game = {
 		/*registers the creep*/
 		me.pool.register("EnemyCreep", game.EnemyCreep, true);
 		/*registers the GameManager*/
-		me.pool.register("GameTimerManager", game.GameTimerManager);
+		me.pool.register("GametimerManager", game.GametimerManager);
 		me.pool.register("HeroDeathManager", game.HeroDeathManager);
 		me.pool.register("ExpManager", game.ExpManager);
 
