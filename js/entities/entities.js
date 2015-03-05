@@ -50,7 +50,7 @@ game.PlayerEntity = me.Entity.extend({
 	  		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 
 	  			123, 124, 125], 80);
 	  		//this is my attack animation
-	  		this.renderable.addAnimation("attack", [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233], 80);
+	  		this.renderable.addAnimation("attack", [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233], 45);
 		},											//arrow animation
 												   //221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233
 
@@ -58,7 +58,7 @@ game.PlayerEntity = me.Entity.extend({
 		// update function constently updates my PlayerEntity
 	update: function(delta){
 		this.now = new Date().getTime();
-		// this.dead = this.checkIfDead();
+		this.dead = this.checkIfDead();
 		this.checkKeyPresses();
 		this.setAnimation();
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -67,13 +67,13 @@ game.PlayerEntity = me.Entity.extend({
 		this._super(me.Entity, "update", [delta]);
 		return true;
 		},
-		// checkingIfDead: function(){
+		checkIfDead: function(){
 
-		// 	if(this.health <=0){
-		// 		return = true;
-		// 	}
-		// 	return = false;
-		// },
+			if(this.health <=0){
+				return  true;
+			}
+			return  false;
+		},
 		checkKeyPresses: function(){
 			if(me.input.isKeyPressed("right")){
 				this.moveRight();
