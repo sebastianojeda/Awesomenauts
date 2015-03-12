@@ -7,6 +7,12 @@ game.spendExp = me.ScreenObject.extend({
 		me.audio.playTrack("TillIt'sGone");
 
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('exp-screen')), -10); // TODO
+
+		me.input.bindKey(me.input.KEY.F1, "F1");
+		me.input.bindKey(me.input.KEY.F2, "F2");
+		me.input.bindKey(me.input.KEY.F3, "F3");
+		me.input.bindKey(me.input.KEY.F4, "F4");
+		me.input.bindKey(me.input.KEY.F5, "F5");
 	
 		me.game.world.addChild(new (me.Renderable.extend({
 			init: function(){
@@ -21,13 +27,26 @@ game.spendExp = me.ScreenObject.extend({
 				this.font.draw(renderer.getContext(), 'CURRENT EXP:' + game.data.exp.toString(), this.pos.x, this.pos.y + 50);
 				this.font.draw(renderer.getContext(), 'F1: INCREASE GOLD CURRENT LEVEL' + game.data.exp1.toString() + "COST: " + ((game.data.exp1 + 1) * 10), this.pos.x, this.pos.y + 100);
 				this.font.draw(renderer.getContext(), 'F2: POWER UPS' , this.pos.x, this.pos.y + 150);
-				this.font.draw(renderer.getContext(), 'F3: INCREASE DAMAGE' , this.pos.x, this.pos.y + 200);
+				this.font.draw(renderer.getContext(), 'F3: INCREASE ATTACK DAMAGE' , this.pos.x, this.pos.y + 200);
 				this.font.draw(renderer.getContext(), 'F4: INCREASE HEALTH' , this.pos.x, this.pos.y + 250);
 			},
 
 		
 		})));
 
+		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge){
+			if(action === "F1"){
+			
+			}else if(action === "F2"){
+
+			}else if(action === "F3"){
+				
+			}else if(action === "F4"){
+				
+			}else if(action === "F5"){
+				me.state.change(me.state.PLAY);
+			}
+		});
 
 	},
 	
@@ -37,5 +56,12 @@ game.spendExp = me.ScreenObject.extend({
 	 */
 	onDestroyEvent: function() {
 		me.audio.stopTrack();
+
+		me.input.unbindKey(me.input.KEY.F1, "F1");
+		me.input.unbindKey(me.input.KEY.F2, "F2");
+		me.input.unbindKey(me.input.KEY.F3, "F3");
+		me.input.unbindKey(me.input.KEY.F4, "F4");
+		me.input.unbindKey(me.input.KEY.F5, "F5");
+		me.event.unsubscribe(this.handler);
 	}
 });
