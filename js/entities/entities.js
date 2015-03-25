@@ -50,7 +50,7 @@ game.PlayerEntity = me.Entity.extend({
 	  		this.renderable.addAnimation("walk", [117, 118, 119, 120, 121, 122, 
 	  			123, 124, 125], 80);
 	  		//this is my attack animation
-	  		this.renderable.addAnimation("attack", [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233], 45);
+	  		this.renderable.addAnimation("attack", [221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233], 55);
 		},											//arrow animation
 												   //221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233
 

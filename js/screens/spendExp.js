@@ -31,8 +31,7 @@ game.spendExp = me.ScreenObject.extend({
 				this.font.draw(renderer.getContext(), 'F3: INCREASE ATTACK DAMAGE' , this.pos.x, this.pos.y + 200);
 				this.font.draw(renderer.getContext(), 'F4: INCREASE HEALTH' , this.pos.x, this.pos.y + 250);
 			},
-
-		
+					
 		})));
 
 		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge){
