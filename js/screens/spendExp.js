@@ -4,7 +4,7 @@ game.spendExp = me.ScreenObject.extend({
 	 */
 	onResetEvent: function() {	
 
-		me.audio.playTrack("TillIt'sGone");
+		me.audio.playTrack("Rage");
 
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('exp-screen')), -10); // TODO
 
