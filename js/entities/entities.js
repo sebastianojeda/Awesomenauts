@@ -30,6 +30,7 @@ game.PlayerEntity = me.Entity.extend({
 		setPlayerTimer: function() {
 			this.now = new Date().getTime();
 	  		this.lastHit = this.now;
+	  		this.lastArrow = this.now;
 	  		this.lastAttack = new Date().getTime(); //haven't used this yet
 		},
 		setAttributes: function() {
@@ -60,6 +61,7 @@ game.PlayerEntity = me.Entity.extend({
 		this.now = new Date().getTime();
 		this.dead = this.checkIfDead();
 		this.checkKeyPresses();
+		this.checkAbilityKeys();
 		this.setAnimation();
 		me.collision.check(this, true, this.collideHandler.bind(this), true);
 		this.body.update(delta);
@@ -108,6 +110,25 @@ game.PlayerEntity = me.Entity.extend({
 			this.body.jumping = true;
 			this.body.vel.y -= this.body.accel.y * me.timer.tick;
 		},
+
+		checkAbilityKeys: function(){
+			if(me.input.isKeyPressed("skill1")){
+
+			}else if(me.input.isKeyPressed("skill2")){
+
+			}else if(me.input.isKeyPressed("skill3")){
+				this.fireArrow();
+			}
+		},
+
+		fireArrow:function(){
+			if(this.lastArrow >= game.data.arrowTimer && game.data.ability3 >= 0){
+			this.lastArrow = this.now;
+			var arrow = me.pool.pull("arrow", this.pos.x, this.pos.y, {});
+			me.game.world.addChild(creepe, 5);
+			}
+		},
+
 		setAnimation: function(){
 				//this is my if statement for my attack animation
 		if(this.attacking){

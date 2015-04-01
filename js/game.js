@@ -23,6 +23,7 @@ var game = {
 		creepMoveSpeed: 5,
 		gameManager: "",
 		player: "",
+		arrowTimer: 5,
 		exp: 0,
 		gold: 0,
 		ability1: 0,
@@ -94,6 +95,7 @@ var game = {
 		me.pool.register("HeroDeathManager", game.HeroDeathManager);
 		me.pool.register("ExpManager", game.ExpManager);
 		me.pool.register("spendGold", game.spendGold);
+		me.pool.register("arrow", game.FireArrow);
 
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
