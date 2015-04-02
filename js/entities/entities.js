@@ -125,7 +125,7 @@ game.PlayerEntity = me.Entity.extend({
 			if(this.lastArrow >= game.data.arrowTimer && game.data.ability3 >= 0){
 			this.lastArrow = this.now;
 			var arrow = me.pool.pull("arrow", this.pos.x, this.pos.y, {});
-			me.game.world.addChild(creepe, 5);
+			me.game.world.addChild(arrow, 10);
 			}
 		},
 
