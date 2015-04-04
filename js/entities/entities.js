@@ -122,9 +122,9 @@ game.PlayerEntity = me.Entity.extend({
 		},
 
 		fireArrow:function(){
-			if(this.lastArrow >= game.data.arrowTimer && game.data.ability3 >= 0){
+			if((this.now-this.lastArrow) >= game.data.arrowTimer*1000 && game.data.ability3 > 0){
 			this.lastArrow = this.now;
-			var arrow = me.pool.pull("arrow", this.pos.x, this.pos.y, {});
+			var arrow = me.pool.pull("arrow", this.pos.x, this.pos.y, {}, this.facing);
 			me.game.world.addChild(arrow, 10);
 			}
 		},
