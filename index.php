@@ -30,7 +30,7 @@
 
 				<div class="password">
 					<label for="password">Password</label>
-					<input type="text" name="password" id="password">					
+					<input type="password" name="password" id="password">					
 				</div>
 				<button type="button" id="register">Register</button>
 
@@ -115,6 +115,36 @@
 			    		me.state.change(me.state.PLAY);
 			    	}else{
 			    		alert (response);
+			    	}
+			})
+			    .fail(function(response){
+			    	alert ('Fail');
+			});
+		});
+
+			$("#load").bind("click", function(){
+			$.ajax({
+				type: "post";
+				url: "php/controller/login-user.php",
+				data: {
+					username: $ ('#username'),val(),
+					password: $ ('#password'),val()
+				},
+				dataType: 'text';
+
+			})
+			    .success(function(response){
+			    	if(response==="Invalid username and password"){
+			    		alert (response);
+			    	
+			    	}else{
+			    		var data = jquery.parseJSON(response);
+			    		game.data.exp = data['exp'];
+			    		game.data.exp = data['exp1'];
+			    		game.data.exp = data['exp2'];
+			    		game.data.exp = data['exp3'];
+			    		game.data.exp = data['exp4'];
+			    		me.state.change(me.state.SPENDEXP);
 			    	}
 			})
 			    .fail(function(response){
