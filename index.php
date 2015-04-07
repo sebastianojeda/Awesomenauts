@@ -34,9 +34,9 @@
 				</div>
 				<button type="button" id="register">Register</button>
 
-				<button type="button" id="Load">load</button>
+				<button type="button" id="load">load</button>
 
-				<button type="button" id="Main Menu">Main Menu</button>
+				<button type="button" id="mainmenu">Main Menu</button>
 			</form>
 
 		<!-- melonJS Library -->
@@ -106,8 +106,8 @@
 				type: "POST",
 				url: "php/controller/create-user.php",
 				data: {
-					username: $ ('#username'),val(),
-					password: $ ('#password'),val()
+					username: $('#username').val(),
+					password: $('#password').val()
 				},
 				dataType: 'text'
 
@@ -129,8 +129,8 @@
 				type: "POST",
 				url: "php/controller/login-user.php",
 				data: {
-					username: $ ('#username'),val(),
-					password: $ ('#password'),val()
+					username: $('#username').val(),
+					password: $('#password').val()
 				},
 				dataType: 'text'
 
@@ -140,6 +140,7 @@
 			    		alert(response);
 			    	
 			    	}else{
+			    		alert(response);
 			    		var data = jquery.parseJSON(response);
 			    		game.data.exp = data['exp'];
 			    		game.data.exp = data['exp1'];

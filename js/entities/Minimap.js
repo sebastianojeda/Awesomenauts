@@ -10,7 +10,9 @@ game.MiniMap = me.Entity.extend({
 			getShape: function(){
 				return(new me.Rect(0, 0, 866, 488)).toPolygon();
 			}
+	
 		}]);
-    },
-		this.floating = true;
+			this.floating = true;//this.floating makes my minimap move around the map
+    }
+		
 });

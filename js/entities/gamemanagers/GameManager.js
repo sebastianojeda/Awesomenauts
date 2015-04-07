@@ -40,7 +40,7 @@ game.HeroDeathManager = Object.extend({
 		me.save.exp = game.data.exp;
 		//for testing purpose only
 		me.save.exp2 = 4;
-	}
+	
 
 	$.ajax({
 		type: "POST",
@@ -66,6 +66,7 @@ game.HeroDeathManager = Object.extend({
 	    .fail(function(response){
 			alert('Fail');
 	});
+	}
 });
 
  // game.spendGold = Object.extend({
