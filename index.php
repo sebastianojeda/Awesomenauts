@@ -34,9 +34,9 @@
 				</div>
 				<button type="button" id="register">Register</button>
 
-				<button type="button" id="Load">Register</button>
+				<button type="button" id="Load">load</button>
 
-				<button type="button" id="Main Menu">Register</button>
+				<button type="button" id="Main Menu">Main Menu</button>
 			</form>
 
 		<!-- melonJS Library -->
@@ -60,6 +60,8 @@
 		<script type="text/javascript" src="js/entities/gamemanagers/HeroDeathManager.js"></script>
 		<script type="text/javascript" src="js/entities/HUD.js"></script>
 		<script type="text/javascript" src="js/entities/FireArrow.js"></script>
+		<script type="text/javascript" src="js/entities/Minimap.js"></script>
+		<script type="text/javascript" src="js/entities/MiniPlayerLocation.js"></script>
 
 		<script type="text/javascript" src="js/screens/title.js"></script>
 		<script type="text/javascript" src="js/screens/play.js"></script>
@@ -101,41 +103,41 @@
 		});
 		$("#register").bind("click", function(){
 			$.ajax({
-				type: "post";
+				type: "POST",
 				url: "php/controller/create-user.php",
 				data: {
 					username: $ ('#username'),val(),
 					password: $ ('#password'),val()
 				},
-				dataType: 'text';
+				dataType: 'text'
 
 			})
 			    .success(function(response){
 			    	if(response==="true"){
 			    		me.state.change(me.state.PLAY);
 			    	}else{
-			    		alert (response);
+			    		alert(response);
 			    	}
 			})
 			    .fail(function(response){
-			    	alert ('Fail');
+			    	alert('Fail');
 			});
 		});
 
 			$("#load").bind("click", function(){
 			$.ajax({
-				type: "post";
+				type: "POST",
 				url: "php/controller/login-user.php",
 				data: {
 					username: $ ('#username'),val(),
 					password: $ ('#password'),val()
 				},
-				dataType: 'text';
+				dataType: 'text'
 
 			})
 			    .success(function(response){
 			    	if(response==="Invalid username and password"){
-			    		alert (response);
+			    		alert(response);
 			    	
 			    	}else{
 			    		var data = jquery.parseJSON(response);
@@ -148,7 +150,7 @@
 			    	}
 			})
 			    .fail(function(response){
-			    	alert ('Fail');
+			    	alert('Fail');
 			});
 		});
 		</script>

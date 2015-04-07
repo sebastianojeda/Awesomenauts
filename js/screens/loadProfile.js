@@ -7,7 +7,7 @@ game.LoadProfile = me.ScreenObject.extend({
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('load-screen')), -10); // TODO
 
 		document.getElementById('input').style.visibility = "visible";
-			document.getElementById('load').style.visibility = "visible";
+		document.getElementById('load').style.visibility = "visible";
 		me.input.unbindKey(me.input.KEY.B);
 		me.input.unbindKey(me.input.KEY.Q);
 		me.input.unbindKey(me.input.KEY.E);

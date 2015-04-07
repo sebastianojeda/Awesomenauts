@@ -41,7 +41,8 @@ var game = {
 		win:"",
 		pausePos:"",
 		buyscreen:"",
-		buytext:""
+		buytext:"",
+		minimap:""
 
 	},
 		
@@ -67,8 +68,7 @@ var game = {
 	me.state.LOAD = 113;
 	me.state.NEW = 114;
 
-	console.log(game.data.exp);
-	console.log(game.data.exp2);
+	
 
 	// Initialize the audio.
 	me.audio.init("mp3,ogg");
@@ -97,7 +97,9 @@ var game = {
 		me.pool.register("HeroDeathManager", game.HeroDeathManager);
 		me.pool.register("ExpManager", game.ExpManager);
 		me.pool.register("spendGold", game.spendGold);
-		me.pool.register("arrow", game.FireArrow);
+		me.pool.register("arrow", game.FireArrow, true);
+		me.pool.register("minimap", game.MiniMap, true);
+		me.pool.register("miniplayer", game.MiniPlayerLocation, true);
 
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
