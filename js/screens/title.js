@@ -7,8 +7,6 @@ game.TitleScreen = me.ScreenObject.extend({
 		me.audio.playTrack("TillIt'sGone");
 		
 		me.game.world.addChild(new me.Sprite(0, 0, me.loader.getImage('title-screen')), -10);
-
-
 	
 		game.data.option1 = new (me.Renderable.extend({
 			init: function(){
@@ -68,6 +66,6 @@ game.TitleScreen = me.ScreenObject.extend({
 	 *  action to perform when leaving this screen (state change)
 	 */
 	onDestroyEvent: function() {
-		// me.audio.stopTrack();
+		me.audio.stopTrack();
 	}
 });

@@ -16,7 +16,7 @@ game.LoadProfile = me.ScreenObject.extend({
 		me.input.unbindKey(me.input.KEY.A);
 	
 	
-		me.game.world.addChild(new (me.Renderable.extend({
+		me.game.world.addChild( new (me.Renderable.extend({
 			init: function(){
 				this._super(me.Renderable, 'init', [270, 240, 300, 50]);
 				this.font = new me.Font('Arial', 26, 'white');

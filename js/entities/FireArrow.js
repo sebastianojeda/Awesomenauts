@@ -39,7 +39,7 @@ game.FireArrow = me.Entity.extend({
 	collideHandler: function(response){
 		//these two if statments are for my creep to be able to 
 		//attack my player entity		
-		if(response.b.type==='EnemyBase' || response.b.type==='EnemyCreep'){			
+		if(response.b.type === 'EnemyBase' || response.b.type === 'EnemyCreep'){			
 			response.b.loseHealth(this.attack);	
 			me.game.world.removeChild(this);		
 		}

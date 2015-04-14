@@ -7,10 +7,6 @@
 		'exp2'=> '',
 		'exp3'=> '',
 		'exp4'=> '',
-
-
-
-
 	);
 
 
@@ -21,7 +17,7 @@
 	if($query->num_rows == 1){
 		$row = $query->fetch_array();
 
-		if($row["password"] == crypt($password, $row["salt"])){
+		if($row["password"] === crypt($password, $row["salt"])){
 			$_SESSION["authenticated"] = true;
 			$array["exp"] = $row["exp"];
 			$array["exp1"] = $row["exp1"];
@@ -29,7 +25,7 @@
 			$array["exp3"] = $row["exp3"];
 			$array["exp4"] = $row["exp4"];
 
-			$_SESSION["name"] = $username;
+				$_SESSION["name"] = $username;
 			
 			echo json_encode($array);
 			echo "<p>login was successful!</p>";

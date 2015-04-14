@@ -23,11 +23,9 @@
 		. "exp1= 0, "
 		. "exp2= 0, "
 		. "exp3= 0, "
-		. "exp4= 0 "
-		 );
+		. "exp4= 0 " );
 
 	$_SESSION["name"] = $username;
-
 			if($query){
 				//Need this for Ajax on index.php
 				echo "true";

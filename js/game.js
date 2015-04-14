@@ -7,7 +7,7 @@ var game = {
 		score : 0,
 		option1:"",
 		option2:"",
-		enemyBaseHealth: 1,
+		enemyBaseHealth: 5,
 		playerBaseHealth: 1,
 		enemyCreepHealth: 4,
 		playerHealth: 10,
@@ -98,8 +98,8 @@ var game = {
 		me.pool.register("ExpManager", game.ExpManager);
 		me.pool.register("spendGold", game.spendGold);
 		me.pool.register("arrow", game.FireArrow, true);
-		me.pool.register("minimap", game.MiniMap, true);
-		me.pool.register("miniplayer", game.MiniPlayerLocation, true);
+		//me.pool.register("minimap", game.MiniMap, true);
+		//me.pool.register("miniplayer", game.MiniPlayerLocation, true);
 
 		me.state.set(me.state.MENU, new game.TitleScreen());
 		me.state.set(me.state.PLAY, new game.PlayScreen());

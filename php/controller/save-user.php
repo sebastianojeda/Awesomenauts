@@ -1,5 +1,5 @@
 <?php
-require_once(__DIR__ . "/../modle/config.php");
+require_once(__DIR__ . "/../model/config.php");
 
  // these five lines of code are variables from my game that are being passed into this php
 //code to update our users table
@@ -15,7 +15,7 @@ $query = $_SESSION["connection"]->query("UPDATE users SET "
 	. "exp1 = $exp1, "
 	. "exp2 = $exp2, "
 	. "exp3 = $exp3, "
-    . "exp4 = $exp4 WHERE username = \"" . $_SESSION["name"]. "\"");
+    . "exp4 = $exp4 WHERE username = \"" . $_SESSION["name"] . "\"");
 
 if($query){
 	// tells us if the query is true

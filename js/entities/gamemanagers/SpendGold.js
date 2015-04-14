@@ -11,7 +11,7 @@
  	update:function(){
  		this.now = new Date().getTime();
 
- 		if(me.input.isKeyPressed("buy") && this.now-this.lastBuy >=1000){
+ 		if(me.input.isKeyPressed("buy") && this.now - this.lastBuy >=1000){
  			this.lastBuy = this.now;
 			if(!this.buying){
 				this.startBuying();
@@ -19,25 +19,30 @@
 				this.stopBuying();
 			}
  		}
+
  		 this.checkBuyKeys();
+
  		return true;
  	},
 
  	startBuying:function(){
- 		this.buying = true; 		
+ 		this.buying = true; 
+ 		me.state.pause(me.state.PLAY); 				
  		game.data.pausePos = me.game.viewport.localToWorld(0, 0);
  		game.data.buyscreen = new me.Sprite(game.data.pausePos.x, game.data.pausePos.y, me.loader.getImage('gold-screen'));
  		game.data.buyscreen.updateWhenPaused = true;
  		game.data.buyscreen.setOpacity(0.8);
  		me.game.world.addChild(game.data.buyscreen, 34);
- 		game.data.player.body.setVelocity(0, 0);
- 		me.state.pause(me.state.PLAY);
+
+ 		// game.data.player.body.setVelocity(0, 0);
+ 		
  		me.input.bindKey(me.input.KEY.F1, 'F1', true);
- 		me.input.bindKey(me.input.KEY.F1, 'F2', true);
- 		me.input.bindKey(me.input.KEY.F1, 'F3', true);
- 		me.input.bindKey(me.input.KEY.F1, 'F4', true);
- 		me.input.bindKey(me.input.KEY.F1, 'F5', true);
- 		me.input.bindKey(me.input.KEY.F1, 'F6', true);
+ 		me.input.bindKey(me.input.KEY.F2, 'F2', true);
+ 		me.input.bindKey(me.input.KEY.F3, 'F3', true);
+ 		me.input.bindKey(me.input.KEY.F4, 'F4', true);
+ 		me.input.bindKey(me.input.KEY.F5, 'F5', true);
+ 		me.input.bindKey(me.input.KEY.F6, 'F6', true);
+
  		this.setBuyText();
 
  	},
@@ -69,11 +74,11 @@
  		game.data.player.body.setVelocity(game.data.playerMoveSpeed, 20);
  		me.game.world.removeChild(game.data.buyscreen);
  		me.input.unbindKey(me.input.KEY.F1, 'F1', true);
- 		me.input.unbindKey(me.input.KEY.F1, 'F2', true);
- 		me.input.unbindKey(me.input.KEY.F1, 'F3', true);
- 		me.input.unbindKey(me.input.KEY.F1, 'F4', true);
- 		me.input.unbindKey(me.input.KEY.F1, 'F5', true);
- 		me.input.unbindKey(me.input.KEY.F1, 'F6', true);
+ 		me.input.unbindKey(me.input.KEY.F2, 'F2', true);
+ 		me.input.unbindKey(me.input.KEY.F3, 'F3', true);
+ 		me.input.unbindKey(me.input.KEY.F4, 'F4', true);
+ 		me.input.unbindKey(me.input.KEY.F5, 'F5', true);
+ 		me.input.unbindKey(me.input.KEY.F6, 'F6', true);
  		me.game.world.removeChild(game.data.buytext);
 
  	},
@@ -119,15 +124,15 @@
 
  			return true;
 
- 		}else if(skill===4 && ( game.data.gold>= ((game.data.ability1+1)* 10) )){
+ 		}else if(skill ===4 && ( game.data.gold>= ((game.data.ability1+1)* 10) )){
 
  			return true;
 
- 		}else if(skill===5 && ( game.data.gold>= ((game.data.ability2+1)* 10) )){
+ 		}else if(skill ===5 && ( game.data.gold>= ((game.data.ability2+1)* 10) )){
 
  			return true;
 
- 		}else if(skill===6 && ( game.data.gold>= ((game.data.ability3 +1)* 10) )){
+ 		}else if(skill ===6 && ( game.data.gold>= ((game.data.ability3 +1)* 10) )){
 
  			return true;
 
@@ -137,7 +142,7 @@
  		}
  	},
 
- 	makePurchase: function(){
+ 	makePurchase: function(skill){
  		if(skill ===  1){
  		game.data.gold -= ((game.data.skill1 +1)* 10)
  		game.data.skill1 += 1;

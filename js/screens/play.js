@@ -22,8 +22,8 @@ game.PlayScreen = me.ScreenObject.extend({
 		var spendGold = me.pool.pull("spendGold", 0, 0, {});
 		me.game.world.addChild(spendGold, 0);
 
-		game.data.minimap = me.pool.pull("minimap", 10, 10, {});
-		me.game.world.addChild(game.data.minimap, 30);
+		// game.data.minimap = me.pool.pull("minimap", 10, 10, {});
+		// me.game.world.addChild(game.data.minimap, 30);
 
 		me.input.bindKey(me.input.KEY.B, "buy");
 		me.input.bindKey(me.input.KEY.Q, "skill");
@@ -38,6 +38,7 @@ game.PlayScreen = me.ScreenObject.extend({
 		this.HUD = new game.HUD.Container();
 		me.game.world.addChild(this.HUD);
 
+		game.data.gold = 10;	
 		me.audio.playTrack("TillIt'sGone");
 	},
 
@@ -59,8 +60,8 @@ game.PlayScreen = me.ScreenObject.extend({
 		// //game.world addes my player to the game world
 		me.game.world.addChild(game.data.player, 5);
 
-		game.data.miniplayer = me.pool.pull("miniplayer", 10, 10, {});
-		me.game.world.addChild(game.data.minimap, 31);
+		// game.data.miniplayer = me.pool.pull("miniplayer", 10, 10, {});
+		// me.game.world.addChild(game.data.minimap, 31);
 
 	}
 
